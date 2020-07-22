@@ -1,2 +1,2 @@
 # C-learning
- C Prime Plus
+ C Prime Plus (6th edition) practices
