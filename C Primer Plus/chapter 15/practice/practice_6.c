@@ -1,4 +1,5 @@
 #include<stdio.h>
+#include<string.h>
 
 typedef struct font{
     unsigned int font_id:8;
@@ -42,14 +43,27 @@ int main(void)
         eatline();
             break;
         case 'a':
-        printf("select alignment:\n");
-        puts("l)left    c)center    r)right");
-        choice = getletter("lcr");
-        /*to be continued
-
-
-        */ 
-        default:
+            printf("select alignment:\n");
+            puts("l)left    c)center    r)right");
+            choice = getletter("lcr");
+            eatline();
+            switch (choice)
+            {
+            case 'l':
+                font.font_align=0;
+                break;
+            case 'c':
+                font.font_align=1;
+                break;
+            case 'r':
+                font.font_align=2;
+                break;
+            }
+        case 'b':font.bold =1;
+            break;
+        case 'i': font.italic=1;
+            break;
+        case 'u': font.undersocre=1;
             break;
         }
         show_menu(&font);
@@ -62,7 +76,7 @@ int main(void)
 void show_menu(Font *font)
 {
     puts("ID SIZE ALIGNMENT    B    I    U");
-    printf("%d%-5d%-10s%19s%23s%27s\n", font->font_id, font->font_size, alig[font->font_align], on_off[font->bold],on_off[font->italic], on_off[font->undersocre]);
+    printf("%d%5d%8s%8s%8s%8s\n", font->font_id, font->font_size, alig[font->font_align], on_off[font->bold],on_off[font->italic], on_off[font->undersocre]);
     puts("f)change font     s)change size       a)change alignment");
     puts("b)toggle bold     i)toggle italic     u)toggle underline");
     puts("q)quit");
@@ -72,7 +86,7 @@ char getletter(char *string)
 {
     char ret_val;
 
-    while((ret_val =getchar()) && strchr(ret_val,string)==NULL)
+    while((ret_val =getchar()) && strchr(string,ret_val)==NULL)
     {
         eatline();
         printf("please only enter %s.\n", string);
