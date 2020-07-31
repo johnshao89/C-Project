@@ -113,7 +113,22 @@ static void InOrder(const Trnode *root, void (*pfun)(Item item))
 
 void DeleteAll(Tree *ptree)
 {
+    if(ptree!=NULL)
+    DeleteAllNodes(ptree->root);
+    ptree->root = NULL;
+    ptree->size=0;
+}
 
+static void DeleteAllNodes(Trnode *root)
+{
+    Trnode *pright;
+    if(root!=NULL)
+    {
+        pright = root->right;
+        DeleteAllNodes(root->left);
+        free(root);
+        DeleteAllNodes(pright);
+    }
 }
 
 static Trnode *MakeNode(const Item *pi)
