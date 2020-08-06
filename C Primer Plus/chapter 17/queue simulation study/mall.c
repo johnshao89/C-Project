@@ -45,7 +45,7 @@ int main(void)
             DeQueue(&temp,&line);
             wait_time= temp.processtime;
             served++;
-            line_wait = cycle - temp.processtime;
+            line_wait += cycle - temp.processtime;
         }
 
         if(wait_time>0)
